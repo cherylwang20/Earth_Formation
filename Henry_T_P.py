@@ -2,37 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 from matplotlib import ticker, cm, colors
+from functions_const import *
 
 SMALL_SIZE = 13
 matplotlib.rc('font', size=SMALL_SIZE, family='Arial')
 matplotlib.rc('axes', titlesize=SMALL_SIZE)
 
 hfont = {'fontname': 'Helvetica'}
-
-
-alpha_Ne = 0.401
-beta_Ne = -43.36
-nu_ca = 13.30
-nu_ca_MgO = 7.57
-nu_s = -7.18
-nu_s_MgO = -2.2
-lambda_sio2 = -770.13
-lambda_MgO = 2118.9
-k_sio2 = -2.06e-6
-k_MgO = 4.7e-5
-V_Ne = 26.5
-Mol_SiO2 = 60.09
-Mol_MgO = 40.3
-T_ref = 1300  # degree
-P_ref = 0.1  # MPa
-
-
-def lnk_Ne_Earth(T, P):
-    mol_sio2 = 0.446
-    mol_MgO = 0.554
-    fun = nu_ca*mol_sio2 + nu_ca_MgO*mol_MgO + nu_s + (lambda_sio2* mol_sio2 + mol_MgO*lambda_MgO) * (1 / T - 1 / T_ref) + (k_sio2*mol_sio2 + k_MgO*mol_MgO) * (P - P_ref) * 10
-    result = alpha_Ne * (100 - 100 / (49.14 * 112.33 / 271.85) * fun) + beta_Ne
-    return result, fun
 
 def lnk_Ne(T, P):
     fun = nu_ca + nu_s + lambda_sio2 * (1 / T - 1 / T_ref) + k_sio2 * (P - P_ref) * 10
@@ -47,20 +23,16 @@ plt.xscale('log')
 plt.yscale('log')
 plt.xlabel('Pressure (MPa)')
 plt.ylabel('-ln(Ne)')
-plt.savefig(f"Pressure-solubility constant", dpi=300, bbox_inches='tight')
-plt.show()
+#plt.savefig(f"Pressure-solubility constant", dpi=300, bbox_inches='tight')
+#plt.show()
 
 plt.plot(P_test, k_sio2 * (P_test - P_ref) * 10)
 plt.xscale('log')
 #plt.yscale('log')
 plt.xlabel('Pressure (MPa)')
 plt.ylabel('k_SiO2 (P - Pref)')
-plt.savefig(f"Pressure-k_SiO2", dpi=300, bbox_inches='tight')
+#plt.savefig(f"Pressure-k_SiO2", dpi=300, bbox_inches='tight')
 #plt.show()
-
-M_Earth = 5.972e+27
-
-
 
 # actual Ne_reservoir: 64.5e15, we want to see the core_mass and pressure to dissolve other amount of Ne.
 
@@ -110,7 +82,7 @@ def Ne_Plot(T):
     cs = ax.contourf(Y_2, X, Z, levs, norm=colors.LogNorm())
     # cs = ax.contourf(X, Y, Z, locator=ticker.LogLocator(), cmap=cm.PuBu_r)
     ax.set_xlabel('Total Surface Pressure (Bar)')
-    ax.set_ylabel('Mantle Mass (M_Earth)')
+    ax.set_ylabel('Mantle Mass (M_earth)')
     ax.set_yscale('log')
     ax.set_xscale('log')
 
@@ -151,7 +123,7 @@ def Ne_Plot(T):
 
 T_list = [1226.85, 1726.85, 2226.85, 2726.85, 3226.85]
 
-for i in range(len(T_list)):
-    Ne_Plot(T_list[i])
+#for i in range(len(T_list)):
+    #Ne_Plot(T_list[i])
 
 print(1/k_sio2)
