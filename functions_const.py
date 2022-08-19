@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from matplotlib import ticker, cm, colors
 
-SMALL_SIZE = 13
+SMALL_SIZE = 18
 matplotlib.rc('font', size=SMALL_SIZE, family='Arial')
 matplotlib.rc('axes', titlesize=SMALL_SIZE)
 
@@ -27,6 +27,14 @@ Ne_reserve = 2.735 * 10 ** (15)
 S_Ne = 2.7e-12
 x_Ne = 2.1e-5
 sigma = 5.6704 * 10 ** (5) #cgs
+m_Ne = 3.35 * 10**(-23)#change to H for testing #g/mol
+m_He = 6.64*10**(-24)
+m_H = 1.67*10**(-24)
+mole_H= 1.00784
+mole_He = 4.002602
+mole_Ne = 20.1797
+sigma_neon = 0.24e-14 #cm^2
+
 
 # define temperature, which we only use as the disk temperature from Chiang
 def T_disk_chiang(a):
@@ -102,6 +110,8 @@ def quasi_M(x, a, M, P_bot, T_bot, T_top):
 def r_max(M, T):
     return G * M * M_earth / Cs_disk(T) ** 2
 
+def r_min(M):
+    return R_E * (M) ** 0.25
 
 #GCR for an isothermal profile
 def GCR_isothermal(a, M, T_fun):
@@ -115,9 +125,12 @@ def GCR_isothermal(a, M, T_fun):
 
 def GCR_quasi(a, M, T_fun, T_bot):
     T_top = T_fun(a)
+    print(M)
     r_min = R_E * (M) ** 0.25
     S_Ne = np.exp(-lnk_Ne_Earth(T_bot, 0.1)[0])
+    print(S_Ne)
     P_Ne = Ne_reserve * S_Ne / x_Ne / M / M_earth * 1e6
+    print(P_Ne)
     res = quad(quasi_M, r_min, r_max(M, T_bot), args=(a, M * M_earth, P_Ne, T_bot, T_top))[0] #Mass given in grams
     return res / M / M_earth
 
@@ -138,6 +151,8 @@ Mol_SiO2 = 60.09
 Mol_MgO = 40.3
 T_ref = 1300  # degree
 P_ref = 0.1  # MPa
+R_gas = 8.314 * 10**7 #erg/mol/K
+av = 6.02214076 * 10**23 #mol^-1
 
 
 def lnk_Ne_Earth(T, P):
