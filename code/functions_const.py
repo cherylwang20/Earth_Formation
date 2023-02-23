@@ -39,28 +39,7 @@ def applyplotstyle(ax):
     plt.tick_params(axis="x", which='minor', direction="in", width=1.5, length=4, pad=7)
     plt.tick_params(right=True, top=True, labelright=False, labeltop=False)
 
-mu = 2.37
-m_p = 1.67 * 10 ** (-24)  # [g]
-k_B = 1.38 * 10 ** (-16)  # [erg/K]
-G = 6.67408 * 10 ** (-8)  # [dyne cm^2/g^2]
-M_mars = 0.64171 * 10 ** (27)  # [g]
-M_sun = 1.989 * 10 ** (33)  # [g]
-M_earth = 5.98 * 10 ** 27  # [g]
-R_E = 6.378 * 10 ** 8  # [cm]
-R_sun = 6.957* 10**10 #[cm]
-autocm = 1.496 * 10 ** (13)
-Ne_reserve = 2.735 * 10 ** (15)
-S_Ne = 2.7e-12
-x_Ne = 2.1e-5 #molar ratio of Ne in solar composition
-sigma = 5.6704 * 10 ** (5) #cgs
-m_Ne = 3.35 * 10**(-23)#change to H for testing #g/mol
-m_He = 6.64*10**(-24)
-m_H = 1.67*10**(-24) #mass of hydrogen
-mole_H= 1.00784
-mole_He = 4.002602
-mole_Ne = 20.1797
-sigma_neon = 0.24e-14 #cm^2
-tau_disk = 2.5 #Myr
+
 
 
 # define temperature, which we only use as the disk temperature from Chiang
